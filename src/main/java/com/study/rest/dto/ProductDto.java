@@ -6,8 +6,6 @@ import lombok.Data;
 
 public class ProductDto {
 
-
-
     // 등록할 때 사용 (등록용)
     @Data
     public static class Register {

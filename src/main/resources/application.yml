@@ -18,6 +18,9 @@ spring:
     activate:
       on-profile:
         - common
+  output:
+    ansi:
+      enabled: ALWAYS
 mybatis:
   mapper-locations:
     - /mappers/*.xml
