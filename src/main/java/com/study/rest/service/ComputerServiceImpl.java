@@ -1,8 +1,6 @@
 package com.study.rest.service;
 
-import com.study.rest.dto.ReqGetListDto;
-import com.study.rest.dto.ReqRegisterComputerDto;
-import com.study.rest.dto.RespGetListDto;
+import com.study.rest.dto.*;
 import com.study.rest.entity.Computer;
 import com.study.rest.repository.ComputerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +47,7 @@ public class ComputerServiceImpl {
         return respDtos;
     }
 
-    // stream 방식 
+    // stream 방식
     public List<RespGetListDto> getComputerList2(ReqGetListDto reqDto) {
         List<RespGetListDto> respDtos = new ArrayList<>();
         Computer computer = Computer.builder()
@@ -63,5 +61,31 @@ public class ComputerServiceImpl {
                 .company(com.getCompany())
                 .build()
         ).collect(Collectors.toList());
+    }
+
+    public RespGetComputerDto getComputer(int computerId) {
+        Computer computer = computerMapper.findComputerById(computerId);
+        return RespGetComputerDto.builder()
+                .computerId(computer.getComputerId())
+                .company(computer.getCompany())
+                .cpu(computer.getCpu())
+                .ram(computer.getRam())
+                .ssd(computer.getSsd())
+                .build();
+    }
+
+    public int deleteComputer(int computerId) {
+        return computerMapper.delete(computerId);
+    }
+
+    public int updateComputer(ReqUpdateComputerDto reqDto) {
+        Computer computer = Computer.builder()
+                .computerId(reqDto.getComputerId())
+                .company(reqDto.getCompany())
+                .cpu(reqDto.getCpu())
+                .ram(reqDto.getRam())
+                .ssd(reqDto.getSsd())
+                .build();
+        return computerMapper.update(computer);
     }
 }
